@@ -1,24 +1,48 @@
 <html>
 	<head>
 		<title>FathomFiddle</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<script src="lib/jquery.js"></script>
 		<script>
-			$(function() {
-				$("#src").val(localStorage.src);
-				$("#save").bind("click", function() {
-					console.log($("#src").val())
+			var fathomFiddle = {
+				
+				init: function() {
+					var self = this;
+					$(function(){
+						$("#src").val(localStorage.src);
+						self.handleEvents();
+					});
+				},
+				
+				handleEvents: function() {
+					var self = this;
+					
+					$('#save').bind('click', $.proxy(this.save, this));
+					$('#src').bind('keypress', function(e){
+						if (e.ctrlKey || e.metaKey && e.which === 83) {
+							e.preventDefault();
+							self.save();
+						}
+					});
+				},
+				
+				save: function() {
 					localStorage.src = $("#src").val();
 					$("#output").attr("src", "output.html");
-				});
-			});
+				}
+				
+			};
+			
+			fathomFiddle.init();
 		</script>
 		
 	</head>
 	<body>
-		<div>
-			<textarea id="src" rows="20" cols="40"></textarea>
-			<button type="button" id="save">Save</button>
+		<div id="input">
+			<div id="handle"></div>
+			<textarea id="src"></textarea>
+			<button type="button" id="save">Save (Ctrl+S)</button>
 		</div>
-		<iframe id="output" height="800" width="100%"></iframe>
+		<iframe id="output" src="output.html"></iframe>
 	</body>
 </html>
