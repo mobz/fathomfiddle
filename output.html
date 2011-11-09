@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>FathomFiddle</title>
+		<script src="lib/jquery.js"></script>
+		<script src="lib/fathom.js"></script>
+		<link href="lib/fathom.sample.css" rel="stylesheet" type="text/css" />
+		<script>
+			$(function() {
+				$("#presentation").html(localStorage.src);
+				$("#presentation").fathom();
+			});
+		</script>
+		
+	</head>
+	<body>
+		<div id="presentation"></div>
+	</body>
+</html>
